@@ -1,0 +1,178 @@
+<odoo>
+  <data>
+
+   <!-- <record model="ir.ui.view" id="">
+            <field name="name">purchase order line form</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="arch" type="xml">
+
+            </field>
+    </record> -->
+
+   <record model="ir.ui.view" id="view_purchase_order_line_tree_mods">
+            <field name="name">purchase order line tree</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Mereplace nama vendor -->
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id" string="Vendor/Customer" />
+                </xpath>
+                <!-- Mereplace nama vendor -->
+
+
+                <!-- Mereplace nama vendor reference -->
+                <xpath expr="//field[@name='partner_ref']" position="replace">
+                    <field name="partner_ref" string="Vendor/Customer Reference"/>
+                </xpath>
+                <!-- Mereplace nama vendor reference -->
+
+                <!-- Mereplace attribute date planned -->
+                <xpath expr="//field[@name='date_planned']" position="replace">
+                    <field name="date_planned" invisible="1"/>
+                </xpath>
+                <!-- Mereplace attribute date planned -->
+
+                <!-- Sisipkan field ukuran setelah date planned -->
+                <xpath expr="//field[@name='date_planned']" position="after">
+                    <field name="ukuran"/>
+                </xpath>
+                <!-- Sisipkan field ukuran setelah date planned -->
+
+                <!-- Mereplace attribute uom -->
+                <xpath expr="//field[@name='product_uom']" position="replace">
+                    <field name="product_uom" invisible="1"/>
+                </xpath>
+                <!-- Mereplace attribute uom -->
+
+                <!-- Sisipkan field unit setelah product_uom -->
+                <xpath expr="//field[@name='product_uom']" position="after">
+                    <field name="unit"/>
+                </xpath>
+                <!-- Sisipkan field unit setelah product_uom -->
+
+                <!-- Mereplace nama Ordered Date -->
+                 <xpath expr="//field[@name='date_order']" position="replace">
+                    <field name="date_order" string="Tgl.Surat Jalan"/>
+                </xpath>
+                <!-- Mereplace nama Ordered Date -->
+
+                <!-- Menyisipkan delivery status setelah date_order -->
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="delivery_status" string="Delivery Status"/>
+                </xpath>
+                <!-- Menyisipkan delivery status setelah date_order -->
+
+
+                <xpath expr="//field[@name='product_id']" position="replace">
+                    <field name="product_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='price_unit']" position="replace">
+                    <field name="price_unit" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='qty_invoiced']" position="replace">
+                    <field name="qty_invoiced" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='price_subtotal']" position="replace">
+                    <field name="price_subtotal" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='taxes_id']" position="replace">
+                    <field name="taxes_id" invisible="1"/>
+                </xpath>
+
+
+                 <xpath expr="//field[@name='ukuran']" position="before">
+                    <field name="product_category"/>
+                    <field name="finishing"/>
+                    <field name="sides"/>
+                </xpath>
+
+                <xpath expr="//field[@name='ukuran']" position="after">
+                    <field name="jml_druk"/>
+                </xpath>
+
+            </field>
+        </record>
+
+       <record model="ir.ui.view" id="purchase_order_tree_custom">
+            <field name="name">purchase order tree custom</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='origin']" position="replace">
+                        <field name="origin" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="replace">
+                        <field name="amount_untaxed" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="replace">
+                        <field name="amount_total" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_status']" position="replace">
+                        <field name="invoice_status" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='date_order']" position="replace">
+                    <field name="date_order" string="Tgl.Surat Jalan"/>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_status']" position="after">
+                        <field name="delivery_status" />
+                </xpath>
+
+            </field>
+       </record>
+
+      <record model="ir.ui.view" id="invetory_order_tree_custom">
+            <field name="name">inventory order tree custom</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_dest_id']" position="replace">
+                    <field name="product_idx"/>
+                </xpath>
+
+                <xpath expr="//field[@name='state']" position="before">
+                    <field name="no_sj_inv"/>
+                    <field name="product_qtyx"/>
+                    <field name="product_uomx"/>
+                </xpath>
+
+            </field>
+      </record>
+
+      <record model="ir.ui.view" id="invetory_order_form_custom">
+            <field name="name">inventory order form custom</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="no_sj_inv"/>
+                </xpath>
+            </field>
+      </record>
+
+      <record model="ir.ui.view" id="product_product_tree_custom">
+            <field name="name">product product tree custom</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="product_category"/>
+                </xpath>
+            </field>
+      </record>
+
+      
+
+
+
+  </data>
+</odoo>
